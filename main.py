@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 from flask import Flask, render_template, request, Response, session, \
     flash, url_for, make_response
 from flask_session import Session
