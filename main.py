@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response, session, \
+    flash, url_for, make_response
+from flask_session import Session
 import requests
 
 class CustomFlask(Flask):
@@ -12,8 +14,19 @@ class CustomFlask(Flask):
     comment_end_string='#$',
     ))
 
+config = json.load(open("../config.json","r"))
+
 
 app = CustomFlask(__name__)
+
+app.secret_key = b'\xc7\xcb\xff\xee\xd3\xd6\x00\x9en\xf3\xc9\xe2[b\xaa\xe8'
+SESSION_TYPE = 'mongodb'
+mongoCli = pymongo.MongoClient(config["mongoDB"])
+SESSION_MONGODB = mongoCli
+SESSION_MONGODB_DB= "flaskSessions"
+app.config.from_object(__name__)
+Session(app)
+
 
 @app.route("/")
 def index():
