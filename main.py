@@ -45,6 +45,7 @@ def login():
     return render_template("login.html")
 
 @app.route("/session")
+def sessionGetter():
     sess = sessions.Session()
     C = cookies.SimpleCookie(request.cookies)
 
