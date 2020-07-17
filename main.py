@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 from flask import Flask, render_template, request, Response, session, \
     flash, url_for, make_response
-from flask_session import Session
+from api import sessions
 import pymongo
 import json
 import requests
@@ -28,7 +28,7 @@ mongoCli = pymongo.MongoClient(config["mongoDB"])
 SESSION_MONGODB = mongoCli
 SESSION_MONGODB_DB= "flaskSessions"
 app.config.from_object(__name__)
-Session(app)
+
 
 
 @app.route("/")
@@ -44,18 +44,6 @@ def launcher():
 def login():
     return render_template("login.html")
 
-@app.route("/loginuser", methods=["POST"])
-def loginUser():
-    username = request.values.get("user")
-    password = request.values.get("pass")
-    redirect = request.values.get("redirect")
-    url = 'http://localhost:8000/users/'+username
-    myobj = {'password':password}
-
-    x = requests.post(url, data = myobj)
-    if redirect != None:
-        pass
-    return x.text
 
 
 if __name__ == "__main__":
