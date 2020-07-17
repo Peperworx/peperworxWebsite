@@ -5,8 +5,8 @@
     _paq.push(["setCookieDomain", ".peperworx.com"]);
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     $.get({
-        "url": "https://user.peperworx.com/user/currentuser",,
-        crossDomain: true,
+        url: "https://user.peperworx.com/user/currentuser",,
+        crossDomain: true
     }, function (data) {
         _paq.push(['setUserId', data["user"]["username"]]);
         console.log(data["user"]["username"])
