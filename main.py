@@ -24,10 +24,9 @@ config = json.load(open("../config.json","r"))
 app = CustomFlask(__name__)
 
 app.secret_key = b'\xc7\xcb\xff\xee\xd3\xd6\x00\x9en\xf3\xc9\xe2[b\xaa\xe8'
-SESSION_TYPE = 'mongodb'
+
 mongoCli = pymongo.MongoClient(config["mongoDB"])
-SESSION_MONGODB = mongoCli
-SESSION_MONGODB_DB= "flaskSessions"
+
 app.config.from_object(__name__)
 
 
@@ -47,7 +46,7 @@ def login():
 
 @app.route("/session")
 def sessionGetter():
-    sess = sessions.Session()
+    sess = sessions.Session(mongoCli)
     C = cookies.SimpleCookie(request.cookies)
 
     sess.load(C["session"].value)
