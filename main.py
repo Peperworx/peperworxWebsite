@@ -44,7 +44,13 @@ def launcher():
 def login():
     return render_template("login.html")
 
+@app.route("/session")
+    sess = sessions.Session()
+    C = cookies.SimpleCookie(request.cookies)
 
+    sess.load(C["session"].value)
+
+    return sess.dictionary
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=80, debug=True)
