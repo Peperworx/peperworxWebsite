@@ -1,6 +1,6 @@
 #! /usr/bin/python3
 from flask import Flask, render_template, request, Response, session, \
-    flash, url_for, make_response
+    flash, url_for, make_response, send_file
 from api import sessions
 from http import cookies
 import pymongo
@@ -52,6 +52,10 @@ def sessionGetter():
     sess.load(C["session"].value)
 
     return sess.dictionary
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_file("static/img/logo.jpg")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=80, debug=True)
