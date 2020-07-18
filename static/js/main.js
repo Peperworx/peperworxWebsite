@@ -1,25 +1,3 @@
-$(".homeBtn").click(function (event) {
-  console.log("Clicked");
-  event.preventDefault();
-  $("#ourGamesPage").hide("slide", { direction: "right" });
-
-  $("#homePage").show("slide", { direction: "left" });
-  $(".ourGamesBtn").toggleClass("active");
-  $(".homeBtn").toggleClass("active");
-});
-
-$(".ourGamesBtn").click(function (event) {
-  console.log("Clicked");
-  event.preventDefault();
-
-  $("#ourGamesPage").show("slide", { direction: "right" });
-
-  $("#homePage").hide("slide", { direction: "left" });
-
-  $(".ourGamesBtn").toggleClass("active");
-  $(".homeBtn").toggleClass("active");
-});
-
 particlesJS("particles-js", {
   particles: {
     number: {
@@ -134,19 +112,108 @@ particlesJS("particles-js", {
 /* ---- stats.js config ---- */
 
 var count_particles, stats, update;
-stats = new Stats();
-stats.setMode(0);
-stats.domElement.style.position = "absolute";
-stats.domElement.style.left = "0px";
-stats.domElement.style.top = "0px";
-document.body.appendChild(stats.domElement);
+
 count_particles = document.querySelector(".js-count-particles");
 update = function () {
-  stats.begin();
-  stats.end();
   if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    //count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
   }
   requestAnimationFrame(update);
 };
 requestAnimationFrame(update);
+
+function getHomepage() {
+  var dta = {};
+  $.get("https://dev.peperworx.com/strapi/homepage", function (data) {
+    dta = data;
+  });
+  return dta;
+}
+
+var header = new Vue({
+  el: "#header",
+  delimiters: ["[%", "%]"],
+  data: {
+    nav1: {
+      text: "",
+      link: "",
+    },
+    nav2: {
+      text: "",
+      link: "",
+    },
+  },
+  methods: {
+    update: function () {
+      var hc = getHomepage();
+      this.nav1.text = hc["Nav1Text"] ?? "Home";
+      this.nav1.link = hc["Nav1Link"] ?? "#home";
+      this.nav2.text = hc["Nav2Text"] ?? "Our Services";
+      this.nav2.link = hc["Nav2Link"] ?? "#games";
+    },
+    togglebtn1: function (event) {
+      event.preventDefault();
+      console.log("Clicked");
+
+      $("#ourGamesPage").hide("slide", { direction: "right" });
+
+      $("#homePage").show("slide", { direction: "left" });
+      $("[href='#games']").toggleClass("active");
+      $("[href='#home']").toggleClass("active");
+    },
+    togglebtn2: function (event) {
+      event.preventDefault();
+      console.log("Clicked");
+
+      $("#ourGamesPage").show("slide", { direction: "right" });
+
+      $("#homePage").hide("slide", { direction: "left" });
+
+      $("[href='#games']").toggleClass("active");
+      $("[href='#home']").toggleClass("active");
+    },
+  },
+});
+
+var main = new Vue({
+  el: "#main",
+  delimiters: ["[%", "%]"],
+  data: {
+    button1: {
+      text: "",
+      link: "",
+      display: "inline",
+    },
+    button2: {
+      text: "",
+      link: "",
+      display: "none",
+    },
+    box1: {
+      text: "",
+    },
+    box2: {
+      text: "",
+    },
+  },
+  methods: {
+    update: function () {
+      var hc = getHomepage();
+
+      this.button1.text = hc["Button1Text"] ?? "";
+      this.button1.link = hc["Button1Text"] ?? "";
+      this.button1.display = hc["Button1Text"] ? "inline" : "none";
+      this.button2.text = hc["Button2Text"] ?? "";
+      this.button2.link = hc["Button2Text"] ?? "";
+      this.button2.display = hc["Button2Text"] ? "inline" : "none";
+      this.box1.text = hc["box1"] ?? "";
+      this.box2.text = hc["box2"] ?? "";
+    },
+  },
+});
+header.update();
+main.update();
+
+$("[href='#home']").click(function (event) {});
+
+$("[href='#games']").click(function (event) {});
