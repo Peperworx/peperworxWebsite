@@ -122,11 +122,21 @@ update = function () {
 };
 requestAnimationFrame(update);
 
+document.onreadystatechange = function () {
+  if (document.readyState !== "complete") {
+    document.querySelector("body").style.visibility = "hidden";
+    document.querySelector("#loader").style.visibility = "visible";
+  } else {
+    $("#loader").fadeOut(function () {
+      document.querySelector("body").style.visibility = "visible";
+      $("body").fadeIn();
+    });
+  }
+};
+
 function getHomepage() {
-  var dta = {};
-  $.get("https://dev.peperworx.com/strapi/homepage", function (data) {
-    dta = data;
-  });
+  var dta;
+
   return dta;
 }
 
@@ -145,19 +155,20 @@ var header = new Vue({
   },
   methods: {
     update: function () {
-      var hc = getHomepage();
-      this.nav1.text = hc["Nav1Text"] ?? "Home";
-      this.nav1.link = hc["Nav1Link"] ?? "#home";
-      this.nav2.text = hc["Nav2Text"] ?? "Our Services";
-      this.nav2.link = hc["Nav2Link"] ?? "#games";
+      $.get("https://dev.peperworx.com/strapi/homepage", (hc) => {
+        this.nav1.text = hc["Nav1Text"] ?? "Home";
+        this.nav1.link = hc["Nav1Link"] ?? "#home";
+        this.nav2.text = hc["Nav2Text"] ?? "Our Services";
+        this.nav2.link = hc["Nav2Link"] ?? "#games";
+      });
     },
     togglebtn1: function (event) {
       event.preventDefault();
       console.log("Clicked");
 
-      $("#ourGamesPage").hide("slide", { direction: "right" });
+      $("#ourGamesPage").hide("fade");
 
-      $("#homePage").show("slide", { direction: "left" });
+      $("#homePage").show("fade");
       $("[href='#games']").toggleClass("active");
       $("[href='#home']").toggleClass("active");
     },
@@ -165,9 +176,9 @@ var header = new Vue({
       event.preventDefault();
       console.log("Clicked");
 
-      $("#ourGamesPage").show("slide", { direction: "right" });
+      $("#ourGamesPage").show("fade");
 
-      $("#homePage").hide("slide", { direction: "left" });
+      $("#homePage").hide("fade");
 
       $("[href='#games']").toggleClass("active");
       $("[href='#home']").toggleClass("active");
@@ -191,29 +202,38 @@ var main = new Vue({
     },
     box1: {
       text: "",
+      title: "",
     },
     box2: {
       text: "",
+      title: "",
     },
   },
   methods: {
     update: function () {
-      var hc = getHomepage();
-
-      this.button1.text = hc["Button1Text"] ?? "";
-      this.button1.link = hc["Button1Text"] ?? "";
-      this.button1.display = hc["Button1Text"] ? "inline" : "none";
-      this.button2.text = hc["Button2Text"] ?? "";
-      this.button2.link = hc["Button2Text"] ?? "";
-      this.button2.display = hc["Button2Text"] ? "inline" : "none";
-      this.box1.text = hc["box1"] ?? "";
-      this.box2.text = hc["box2"] ?? "";
+      $.get("https://dev.peperworx.com/strapi/homepage", (hc) => {
+        console.log(hc);
+        this.button1.text = hc["Button1Text"] ?? "";
+        this.button1.link = hc["Button1Text"] ?? "";
+        this.button1.display = hc["Button1Text"]
+          ? "display: inline!important;"
+          : "display: none!important;";
+        this.button2.text = hc["Button2Text"] ?? "";
+        this.button2.link = hc["Button2Text"] ?? "";
+        this.button2.display = hc["Button2Text"]
+          ? "display: inline!important;"
+          : "display: none!important;";
+        this.box1.text =
+          hc["Box1"] ??
+          "Error, content should be here. Try to refresh the page.";
+        this.box1.title = hc["Box1Title"] ?? "Error, try refreshing the page";
+        this.box2.text =
+          hc["Box2"] ??
+          "Error, content should be here. Try to refresh the page.";
+        this.box2.title = hc["Box2Title"] ?? "Error, try refreshing the page";
+      });
     },
   },
 });
 header.update();
 main.update();
-
-$("[href='#home']").click(function (event) {});
-
-$("[href='#games']").click(function (event) {});

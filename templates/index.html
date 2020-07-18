@@ -23,6 +23,7 @@
 </head>
 
 <body>
+    <div id="loader"></div>
     <div id="particles-js">
 
     </div>
@@ -42,26 +43,24 @@
 
         <main role="main" id="main" class="inner cover">
             <div id="homePage" class="page w3-center">
-                <h1 class="cover-heading">We are Peperworx</h1>
-                <p class="lead">Peperworx is an Inovation Lab. We are a small team based in
-                    Culpeper Virginia that develops new software and gaming concepts.
+                <h1 class="cover-heading">[% box1.title %]</h1>
+                <p class="lead">[% box1.text %]
                 </p>
                 <p class="lead">
-                    <!-- <a href="#" class="btn btn-lg btn-secondary ourGamesBtn">About Our Games</a> -->
+                    <a :href="button1.link" :style="button1.display" class="btn btn-lg btn-secondary ourGamesBtn">
+                        [% button1.text %]</a>
                 </p>
             </div>
             <div id="ourGamesPage" class="page">
-                <h1 class="cover-heading">Our Services</h1>
+                <h1 class="cover-heading">[% box2.title %]</h1>
                 <p class="lead">
-                    No services have yet been released to the public, however, we are currently working on anopen/closed
-                    beta solution so that the general public may play and test video games and other software that we
-                    develop before a full release. This
-                    solution will include a launcher, that we will allow thrid party developers to publish games on.
+                    [% box2.text %]
                     <br>
 
                 </p>
                 <p class="lead">
-                    <a href="/launcher" class="btn btn-lg btn-secondary">Learn about the Peperworx Launcher</a>
+                    <a :href="button2.link" :style="button2.display" class="btn btn-lg btn-secondary">
+                        [% button2.text %]</a>
                 </p>
             </div>
         </main>
