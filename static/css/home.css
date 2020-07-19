@@ -117,15 +117,28 @@ body {
   display: none;
 }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  .page {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
 .page {
-  margin-top: -20vh !important;
+  margin-top: -15vh !important;
   text-align: center;
   margin: auto;
-  pointer-events: none;
+  pointer-events: visible;
+  overflow-y: scroll;
+  max-height: 50vh;
+  scrollbar-width: thin;
+  scrollbar-face-color: #333;
+  scrollbar-base-color: transparent;
+  direction: rtl;
 }
 
 .page a {
-  pointer-events: visible-;
+  pointer-events: visible;
 }
 
 #loader {
