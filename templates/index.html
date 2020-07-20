@@ -10,7 +10,6 @@
     <link href="/static/css/aos.css" rel="stylesheet">
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/jquery-ui.css" rel="stylesheet">
-    <link href="/static/css/simple-scrollbar.css" rel="stylesheet">
 
     <!-- Script includes -->
     <script src="/static/js/vue.js"></script>
@@ -18,9 +17,10 @@
     <script src="/static/js/aos.js"></script>
     <script src="/static/js/bootstrap.js"></script>
     <script src="/static/js/particles.min.js"></script>
-    <script src="/static/js/simple-scrollbar.min.js"></script>
+
     {% include 'matomo.html' %}
     <script src="/static/js/jquery-ui.js"></script>
+    <script src="/static/js/pulltorefresh.js"></script>
 </head>
 
 <body>
@@ -45,22 +45,22 @@
         <main role="main" id="main" class="inner cover">
             <div id="homePage" class="page w3-center">
                 <h1 class="cover-heading">[% box1.title %]</h1>
-                <p class="lead">[% box1.text %]
+                <p class="lead textcontent">[% box1.text %]
                 </p>
-                <p class="lead">
-                    <a :href="button1.link" :style="button1.display" class="btn btn-lg btn-secondary ourGamesBtn">
+                <p class="lead ">
+                    <a :href="button1.link" :style="button1.display" class="btn btn-lg btn-secondary textbutton">
                         [% button1.text %]</a>
                 </p>
             </div>
             <div id="ourGamesPage" class="page">
                 <h1 class="cover-heading">[% box2.title %]</h1>
-                <p class="lead">
+                <p class="lead textcontent">
                     [% box2.text %]
                     <br>
 
                 </p>
-                <p class="lead">
-                    <a :href="button2.link" :style="button2.display" class="btn btn-lg btn-secondary">
+                <p class="lead ">
+                    <a :href="button2.link" :style="button2.display" class="btn btn-lg btn-secondary textbutton">
                         [% button2.text %]</a>
                 </p>
             </div>

@@ -37,10 +37,12 @@ body {
   text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
           box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
+  max-height: 100vh;
 }
 
 .cover-container {
   max-width: 44em;
+  max-height: 100vh;
 }
 
 /*
@@ -117,28 +119,38 @@ body {
   display: none;
 }
 
+.page {
+  margin-top: -5vh !important;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  overflow: hidden;
+  scrollbar-width: thin;
+  direction: ltr;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-  .page {
-    width: 100%;
+  .textbutton {
+    display: block !important;
+    width: 90% !important;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+  }
+  .textcontent {
+    direction: ltr;
+    pointer-events: auto;
+    overflow-y: scroll !important;
+    pointer-events: auto;
+    max-height: 50vh;
     padding: 15px;
+    scrollbar-face-color: #444;
+    scrollbar-base-color: transparent;
   }
 }
 
-.page {
-  margin-top: -15vh !important;
-  text-align: center;
-  margin: auto;
-  pointer-events: visible;
-  overflow-y: scroll;
-  max-height: 50vh;
-  scrollbar-width: thin;
-  scrollbar-face-color: #333;
-  scrollbar-base-color: transparent;
-  direction: rtl;
-}
-
-.page a {
-  pointer-events: visible;
+.textbutton {
+  width: 300px;
 }
 
 #loader {

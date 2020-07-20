@@ -166,9 +166,9 @@ var header = new Vue({
       event.preventDefault();
       console.log("Clicked");
 
-      $("#ourGamesPage").hide("fade");
+      $("#ourGamesPage").hide();
 
-      $("#homePage").show("fade");
+      $("#homePage").show();
       $("[href='#games']").toggleClass("active");
       $("[href='#home']").toggleClass("active");
     },
@@ -176,9 +176,9 @@ var header = new Vue({
       event.preventDefault();
       console.log("Clicked");
 
-      $("#ourGamesPage").show("fade");
+      $("#ourGamesPage").show();
 
-      $("#homePage").hide("fade");
+      $("#homePage").hide();
 
       $("[href='#games']").toggleClass("active");
       $("[href='#home']").toggleClass("active");
@@ -216,12 +216,12 @@ var main = new Vue({
         this.button1.text = hc["Button1Text"] ?? "";
         this.button1.link = hc["Button1Text"] ?? "";
         this.button1.display = hc["Button1Text"]
-          ? "display: inline!important;"
+          ? "display: auto;"
           : "display: none!important;";
         this.button2.text = hc["Button2Text"] ?? "";
         this.button2.link = hc["Button2Text"] ?? "";
         this.button2.display = hc["Button2Text"]
-          ? "display: inline!important;"
+          ? "display: auto;"
           : "display: none!important;";
         this.box1.text =
           hc["Box1"] ??
@@ -237,3 +237,10 @@ var main = new Vue({
 });
 header.update();
 main.update();
+
+const ptr = PullToRefresh.init({
+  mainElement: "html",
+  onRefresh() {
+    window.location.reload();
+  },
+});
